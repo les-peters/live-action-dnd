@@ -21,6 +21,11 @@ def rollCheck(ability):
     print('Rolled', str(check), 'on', ability, 'check')
     return check
 
+def rollInit():
+    init = roll(20)
+    print('Rolled', str(init), 'on initiative')
+    return init
+
 save_menu = [
     { 'name': 'STR', 'func': 'rollSave("STR")' },
     { 'name': 'DEX', 'func': 'rollSave("DEX")' },
@@ -47,14 +52,27 @@ rest_menu = [
     { 'name': 'Return', 'func': 'setMenu(top_menu)'}
 ]
 
+range_menu = [
+    { 'name': 'Return', 'func': 'setMenu(top_menu)'}
+]
+
+melee_menu = [
+    { 'name': 'Return', 'func': 'setMenu(top_menu)'}
+]
+
+cast_menu = [
+    { 'name': 'Return', 'func': 'setMenu(top_menu)'}
+]
+
 top_menu = [
     { 'name': 'Check', 'func': 'setMenu(check_menu)' },
     { 'name': 'Save',  'func': 'setMenu(save_menu)' },
-    { 'name': 'Melee' },
-    { 'name': 'Range' },
-    { 'name': 'Cast' },
+    { 'name': 'Melee', 'func': 'setMenu(melee_menu)' },
+    { 'name': 'Range', 'func': 'setMenu(range_menu)' },
+    { 'name': 'Cast', 'func': 'setMenu(cast_menu)'},
     { 'name': 'Rest', 'func': 'setMenu(rest_menu)' },
-    { 'name': 'Init' }
+    { 'name': 'Init', 'func': 'rollInit()' },
+    { 'name': 'Exit', 'func': 'exit()'}
 ]
 
 menu = top_menu
