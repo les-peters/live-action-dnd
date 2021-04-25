@@ -32,7 +32,13 @@ def rollSave(ability):
     d20 = roll(20)
     checkForNat20(d20)
     checkForNat1(d20)
-    save = d20 + getModifier(ability)
+    proficiency_bonus = 0
+    if ability in character['proficiencies'].keys():
+        proficiency_bonus = character['proficiencies'][ability]
+    # print('Proficiency Bonus:', str(proficiency_bonus))
+    modifier = getModifier(ability)
+    # print('Modifier:', str(modifier))
+    save = d20 + modifier + proficiency_bonus
     print('Rolled', str(save), 'on', ability, 'save')
     return save
 
@@ -40,7 +46,13 @@ def rollCheck(ability):
     d20 = roll(20)
     checkForNat20(d20)
     checkForNat1(d20)
-    check = d20 + getModifier(ability)
+    proficiency_bonus = 0
+    if ability in character['proficiencies'].keys():
+        proficiency_bonus = character['proficiencies'][ability]
+    # print('Proficiency Bonus:', str(proficiency_bonus))
+    modifier = getModifier(ability)
+    # print('Modifier:', str(modifier))
+    check = d20 + modifier + proficiency_bonus
     print('Rolled', str(check), 'on', ability, 'check')
     return check
 
@@ -99,11 +111,29 @@ save_menu = [
 
 check_menu = [
     { 'name': 'STR', 'func': 'rollCheck("STR")' },
+    { 'name': 'Athletics (STR)', 'func': 'rollCheck("STR")'},
     { 'name': 'DEX', 'func': 'rollCheck("DEX")' },
+    { 'name': 'Acrobatics (DEX)', 'func': 'rollCheck("DEX")'},
+    { 'name': 'Sleight of Hand (DEX)', 'func': 'rollCheck("DEX")'},
+    { 'name': 'Stealth (DEX)', 'func': 'rollCheck("DEX")'},
     { 'name': 'CON', 'func': 'rollCheck("CON")' },
     { 'name': 'INT', 'func': 'rollCheck("INT")' },
+    { 'name': 'Arcana (INT)', 'func': 'rollCheck("INT")'},
+    { 'name': 'History (INT)', 'func': 'rollCheck("INT")'},
+    { 'name': 'Investigation (INT)', 'func': 'rollCheck("INT")'},
+    { 'name': 'Nature (INT)', 'func': 'rollCheck("INT")'},
+    { 'name': 'Religion (INT)', 'func': 'rollCheck("INT")'},
     { 'name': 'WIS', 'func': 'rollCheck("WIS")'},
+    { 'name': 'Athletics (WIS)', 'func': 'rollCheck("WIS")'},
+    { 'name': 'Insight (WIS)', 'func': 'rollCheck("WIS")'},
+    { 'name': 'Medicine (WIS)', 'func': 'rollCheck("WIS")'},
+    { 'name': 'Perception (WIS)', 'func': 'rollCheck("WIS")'},
+    { 'name': 'Survival (WIS)', 'func': 'rollCheck("WIS")'},
     { 'name': 'CHA', 'func': 'rollCheck("CHA")' },
+    { 'name': 'Deception (CHA)', 'func': 'rollCheck("CHA")'},
+    { 'name': 'Intimidation (CHA)', 'func': 'rollCheck("CHA")'},
+    { 'name': 'Performance (CHA)', 'func': 'rollCheck("CHA")'},
+    { 'name': 'Persuasion (CHA)', 'func': 'rollCheck("CHA")'},
     { 'name': 'Return', 'func': 'setMenu(top_menu)'}
 ]
 
@@ -149,7 +179,13 @@ character = {
     },
     'classes': [
         { 'class': 'Fighter', 'subclass': 'Arcane Archer (XGE)', 'level': 3 }
-    ]
+    ],
+    'proficiencies': {
+        'STR': 2,
+        'CON': 2,
+        'Acrobatics' : 2,
+        'Athletics': 2
+    }
 }
 
 with keyboard.Listener(on_press=on_press, on_release=on_release, suppress=True) as l:
